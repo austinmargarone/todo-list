@@ -59,27 +59,29 @@ export default function Home() {
   }
 
   return (
-    <main className="py-[2.5rem] flex min-h-screen flex-col items-center gap-[2.5rem] justify-center">
-      <div>New Task</div>
-      <input
-        onChange={(e) => setTodoValue(e.target.value)}
-        value={todoValue}
-        className="rounded-md shadow-md p-2 text-black"
-        placeholder="Task"
-      />
-      <input
-        onChange={(e) => setDescriptionValue(e.target.value)}
-        value={descriptionValue}
-        className="rounded-md shadow-md p-2 text-black"
-        placeholder="Description"
-      />
-      <button
-        onClick={handlePostTodo}
-        className="bg-blue-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
-      >
-        Create Task
-      </button>
-      <ul className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px]">
+    <main className="py-[2.5rem] flex flex-col items-center gap-[2.5rem] justify-center">
+      <section className="items-center w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px] flex flex-col gap-[2rem]">
+        <div>New Task</div>
+        <input
+          onChange={(e) => setTodoValue(e.target.value)}
+          value={todoValue}
+          className="rounded-md shadow-md p-2 text-black"
+          placeholder="Task"
+        />
+        <input
+          onChange={(e) => setDescriptionValue(e.target.value)}
+          value={descriptionValue}
+          className="rounded-md shadow-md p-2 text-black"
+          placeholder="Description"
+        />
+        <button
+          onClick={handlePostTodo}
+          className="bg-blue-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+        >
+          Create Task
+        </button>
+      </section>
+      <ul className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
         <h2 className="flex justify-center mt-[2.5rem]">My Tasks</h2>
         {todos.map((todo) => (
           <li
