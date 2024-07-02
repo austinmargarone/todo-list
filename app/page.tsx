@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <main className="py-[2.5rem] flex min-h-screen flex-col items-center gap-[2.5rem] justify-center">
-      <div>My Tasks</div>
+      <div>New Task</div>
       <input
         onChange={(e) => setTodoValue(e.target.value)}
         value={todoValue}
@@ -79,7 +79,8 @@ export default function Home() {
       >
         Create Task
       </button>
-      <ul className="gap-[2rem] flex flex-col">
+      <ul className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px]">
+        <h2 className="flex justify-center mt-[2.5rem]">My Tasks</h2>
         {todos.map((todo) => (
           <li
             key={todo.id}
@@ -101,12 +102,14 @@ export default function Home() {
             >
               Delete
             </button>
-            <p className="text-[8px] italic">{`Created At: ${new Date(
-              todo.createdAt
-            ).toLocaleString()}`}</p>
-            <p className="text-[8px] italic">{`Updated At: ${new Date(
-              todo.updatedAt
-            ).toLocaleString()}`}</p>
+            <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center">
+              <p className="text-[8px] italic">{`Created At: ${new Date(
+                todo.createdAt
+              ).toLocaleString()}`}</p>
+              <p className="text-[8px] italic">{`Updated At: ${new Date(
+                todo.updatedAt
+              ).toLocaleString()}`}</p>
+            </div>
           </li>
         ))}
       </ul>
