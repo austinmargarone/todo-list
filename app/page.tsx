@@ -5,7 +5,7 @@ import { Todo } from "@prisma/client";
 
 export default function Home() {
   const [todoValue, setTodoValue] = useState<string>("");
-  const [descriptionValue, setDescriptionValue] = useState<string>(""); // Add state for description
+  const [descriptionValue, setDescriptionValue] = useState<string>("");
   const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
@@ -21,12 +21,26 @@ export default function Home() {
       const res = await axios.post("/api/todo", {
         title: todoValue,
         description: descriptionValue,
-      }); // Include description in the request
+        completed: false, // Default completed to false
+      });
       setTodos([...todos, res.data]);
       setTodoValue("");
-      setDescriptionValue(""); // Reset description input
+      setDescriptionValue("");
     } catch (error) {
       console.error("Error posting todo", error);
+    }
+  }
+
+  async function handleToggleCompleted(id: number, completed: boolean) {
+    try {
+      const res = await axios.patch("/api/todo", { id, completed: !completed });
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !completed } : todo
+        )
+      );
+    } catch (error) {
+      console.error("Error updating todo", error);
     }
   }
 
@@ -56,6 +70,16 @@ export default function Home() {
           <li key={todo.id}>
             <strong>{todo.title}</strong>
             <p>{todo.description}</p>
+            <p>{`Created At: ${new Date(todo.createdAt).toLocaleString()}`}</p>
+            <p>{`Updated At: ${new Date(todo.updatedAt).toLocaleString()}`}</p>
+            <button
+              onClick={() => handleToggleCompleted(todo.id, todo.completed)}
+              className={`cursor-pointer shadow-md p-2 rounded ${
+                todo.completed ? "bg-green-500" : "bg-red-500"
+              }`}
+            >
+              {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
+            </button>
           </li>
         ))}
       </ul>
