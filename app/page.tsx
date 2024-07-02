@@ -11,7 +11,11 @@ export default function Home() {
   useEffect(() => {
     async function fetchTodos() {
       const res = await axios.get("/api/todo");
-      setTodos(res.data);
+      const sortedTodos = res.data.sort(
+        (a: Todo, b: Todo) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      setTodos(sortedTodos);
     }
     fetchTodos();
   }, []);
@@ -21,9 +25,10 @@ export default function Home() {
       const res = await axios.post("/api/todo", {
         title: todoValue,
         description: descriptionValue,
-        completed: false, // Default completed to false
+        completed: false,
       });
-      setTodos([...todos, res.data]);
+      const newTodo = res.data;
+      setTodos([newTodo, ...todos]);
       setTodoValue("");
       setDescriptionValue("");
     } catch (error) {
@@ -33,7 +38,7 @@ export default function Home() {
 
   async function handleToggleCompleted(id: number, completed: boolean) {
     try {
-      const res = await axios.patch("/api/todo", { id, completed: !completed });
+      await axios.patch("/api/todo", { id, completed: !completed });
       setTodos(
         todos.map((todo) =>
           todo.id === id ? { ...todo, completed: !completed } : todo
@@ -73,7 +78,6 @@ export default function Home() {
           >
             <strong>{todo.title}</strong>
             <p className="mb-[.5rem]">{todo.description}</p>
-            {/* <p>{`Updated At: ${new Date(todo.updatedAt).toLocaleString()}`}</p> */}
             <button
               onClick={() => handleToggleCompleted(todo.id, todo.completed)}
               className={`cursor-pointer shadow-md p-2 rounded ${
