@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Todo } from "@prisma/client";
 
 export default function Home() {
-  console.log("Test Frontend");
   const [todoValue, setTodoValue] = useState<string>("");
+  const [descriptionValue, setDescriptionValue] = useState<string>(""); // Add state for description
   const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
@@ -18,9 +18,13 @@ export default function Home() {
 
   async function handlePostTodo() {
     try {
-      const res = await axios.post("/api/todo", { title: todoValue });
+      const res = await axios.post("/api/todo", {
+        title: todoValue,
+        description: descriptionValue,
+      }); // Include description in the request
       setTodos([...todos, res.data]);
       setTodoValue("");
+      setDescriptionValue(""); // Reset description input
     } catch (error) {
       console.error("Error posting todo", error);
     }
@@ -33,7 +37,13 @@ export default function Home() {
         onChange={(e) => setTodoValue(e.target.value)}
         value={todoValue}
         className="rounded-md shadow-md p-2 text-black"
-        placeholder="Add to do..."
+        placeholder="Add todo title..."
+      />
+      <input
+        onChange={(e) => setDescriptionValue(e.target.value)}
+        value={descriptionValue}
+        className="rounded-md shadow-md p-2 text-black"
+        placeholder="Add todo description..."
       />
       <button
         onClick={handlePostTodo}
@@ -43,7 +53,10 @@ export default function Home() {
       </button>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
+          <li key={todo.id}>
+            <strong>{todo.title}</strong>
+            <p>{todo.description}</p>
+          </li>
         ))}
       </ul>
     </main>

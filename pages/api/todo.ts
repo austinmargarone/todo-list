@@ -31,10 +31,11 @@ async function getTodos(req: NextApiRequest, res: NextApiResponse) {
 
 async function postTodo(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title } = req.body;
+    const { title, description } = req.body;
     const todo = await prisma.todo.create({
       data: {
         title,
+        description,
       },
     });
     res.status(200).json(todo);
