@@ -46,32 +46,34 @@ export default function Home() {
 
   return (
     <main className="py-[2.5rem] flex min-h-screen flex-col items-center gap-[2.5rem] justify-center">
-      <div>Tasks</div>
+      <div>My Tasks</div>
       <input
         onChange={(e) => setTodoValue(e.target.value)}
         value={todoValue}
         className="rounded-md shadow-md p-2 text-black"
-        placeholder="Add todo title..."
+        placeholder="Task"
       />
       <input
         onChange={(e) => setDescriptionValue(e.target.value)}
         value={descriptionValue}
         className="rounded-md shadow-md p-2 text-black"
-        placeholder="Add todo description..."
+        placeholder="Description"
       />
       <button
         onClick={handlePostTodo}
         className="bg-blue-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
       >
-        Add Task
+        Create Task
       </button>
       <ul className="gap-[2rem] flex flex-col">
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <li
+            key={todo.id}
+            className="shadow-lg border p-5 flex flex-col gap-[.5rem] rounded-sm"
+          >
             <strong>{todo.title}</strong>
             <p>{todo.description}</p>
-            <p>{`Created At: ${new Date(todo.createdAt).toLocaleString()}`}</p>
-            <p>{`Updated At: ${new Date(todo.updatedAt).toLocaleString()}`}</p>
+            {/* <p>{`Updated At: ${new Date(todo.updatedAt).toLocaleString()}`}</p> */}
             <button
               onClick={() => handleToggleCompleted(todo.id, todo.completed)}
               className={`cursor-pointer shadow-md p-2 rounded ${
@@ -80,6 +82,9 @@ export default function Home() {
             >
               {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
             </button>
+            <p className="text-[8px]">{`Created At: ${new Date(
+              todo.createdAt
+            ).toLocaleString()}`}</p>
           </li>
         ))}
       </ul>
