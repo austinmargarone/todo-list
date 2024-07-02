@@ -17,6 +17,9 @@ export default async function handler(
     case "PATCH": {
       return updateTodo(req, res);
     }
+    case "DELETE": {
+      return deleteTodo(req, res);
+    }
     default:
       res.status(405).end();
       break;
@@ -50,12 +53,24 @@ async function postTodo(req: NextApiRequest, res: NextApiResponse) {
 
 async function updateTodo(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id, completed } = req.body;
+    const { id, title, description, completed } = req.body;
     const todo = await prisma.todo.update({
       where: { id },
-      data: { completed },
+      data: { title, description, completed },
     });
     res.status(200).json(todo);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+async function deleteTodo(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { id } = req.body;
+    await prisma.todo.delete({
+      where: { id },
+    });
+    res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

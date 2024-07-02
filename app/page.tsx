@@ -38,7 +38,7 @@ export default function Home() {
 
   async function handleToggleCompleted(id: number, completed: boolean) {
     try {
-      await axios.patch("/api/todo", { id, completed: !completed });
+      const res = await axios.patch("/api/todo", { id, completed: !completed });
       setTodos(
         todos.map((todo) =>
           todo.id === id ? { ...todo, completed: !completed } : todo
@@ -46,6 +46,15 @@ export default function Home() {
       );
     } catch (error) {
       console.error("Error updating todo", error);
+    }
+  }
+
+  async function handleDeleteTodo(id: number) {
+    try {
+      await axios.delete("/api/todo", { data: { id } });
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error("Error deleting todo", error);
     }
   }
 
@@ -86,8 +95,17 @@ export default function Home() {
             >
               {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
             </button>
+            <button
+              onClick={() => handleDeleteTodo(todo.id)}
+              className="bg-gray-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
+            >
+              Delete
+            </button>
             <p className="text-[8px] italic">{`Created At: ${new Date(
               todo.createdAt
+            ).toLocaleString()}`}</p>
+            <p className="text-[8px] italic">{`Updated At: ${new Date(
+              todo.updatedAt
             ).toLocaleString()}`}</p>
           </li>
         ))}
