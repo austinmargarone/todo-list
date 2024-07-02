@@ -45,8 +45,8 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-[2.5rem] justify-center">
-      <div>To Do App</div>
+    <main className="py-[2.5rem] flex min-h-screen flex-col items-center gap-[2.5rem] justify-center">
+      <div>Tasks</div>
       <input
         onChange={(e) => setTodoValue(e.target.value)}
         value={todoValue}
@@ -61,11 +61,11 @@ export default function Home() {
       />
       <button
         onClick={handlePostTodo}
-        className="bg-blue-500 cursor-pointer shadow-md p-5 text-white rounded"
+        className="bg-blue-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
       >
-        Add
+        Add Task
       </button>
-      <ul>
+      <ul className="gap-[2rem] flex flex-col">
         {todos.map((todo) => (
           <li key={todo.id}>
             <strong>{todo.title}</strong>
