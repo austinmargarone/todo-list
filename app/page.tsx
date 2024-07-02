@@ -72,7 +72,7 @@ export default function Home() {
             className="shadow-lg border p-5 flex flex-col gap-[.5rem] rounded-sm"
           >
             <strong>{todo.title}</strong>
-            <p>{todo.description}</p>
+            <p className="mb-[.5rem]">{todo.description}</p>
             {/* <p>{`Updated At: ${new Date(todo.updatedAt).toLocaleString()}`}</p> */}
             <button
               onClick={() => handleToggleCompleted(todo.id, todo.completed)}
@@ -82,7 +82,7 @@ export default function Home() {
             >
               {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
             </button>
-            <p className="text-[8px]">{`Created At: ${new Date(
+            <p className="text-[8px] italic">{`Created At: ${new Date(
               todo.createdAt
             ).toLocaleString()}`}</p>
           </li>
