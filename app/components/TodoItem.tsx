@@ -44,13 +44,13 @@ const TodoItem: React.FC<TodoItemProps> = ({
           <div className="flex gap-2 mt-2">
             <button
               onClick={handleSaveEdit}
-              className="bg-green-500 hover:bg-green-600 active:bg-green-700 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+              className="bg-green-500 hover:bg-green-600 active:bg-green-700 cursor-pointer shadow-md px-5 py-2 text-white rounded w-full"
             >
               Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+              className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md px-5 py-2 text-white rounded w-full"
             >
               Cancel
             </button>
@@ -60,29 +60,27 @@ const TodoItem: React.FC<TodoItemProps> = ({
         <>
           <strong className="text-lg">{todo.title}</strong>
           <p className="mb-2">{todo.description}</p>
-          <div className="flex flex-col lg:flex-row gap-2 mt-2 w-[100%]">
-            <div className="flex w-[100%]">
-              <button
-                onClick={() => onToggleCompleted(todo.id, todo.completed)}
-                className={`w-[100%] cursor-pointer shadow-md p-2 rounded text-white ${
-                  todo.completed
-                    ? "bg-green-500 hover:bg-green-600 active:bg-green-700"
-                    : "bg-red-500 hover:bg-red-600 active:bg-red-700"
-                }`}
-              >
-                {todo.completed ? "Mark Incomplete" : "Mark Complete"}
-              </button>
-            </div>
-            <div className="flex w-[100%] gap-2">
+          <div className="flex flex-col lg:flex-row gap-2 mt-2">
+            <button
+              onClick={() => onToggleCompleted(todo.id, todo.completed)}
+              className={`cursor-pointer shadow-md p-2 rounded text-white ${
+                todo.completed
+                  ? "bg-green-500 hover:bg-green-600 active:bg-green-700"
+                  : "bg-red-500 hover:bg-red-600 active:bg-red-700"
+              } lg:w-1/2`}
+            >
+              {todo.completed ? "Mark Incomplete" : "Mark Complete"}
+            </button>
+            <div className="flex gap-2 lg:w-1/2">
               <button
                 onClick={() => setIsEditing(true)}
-                className="bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 cursor-pointer shadow-md p-2 text-white rounded w-[50%]"
+                className="bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 cursor-pointer shadow-md p-2 text-white rounded w-full"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDeleteTodo(todo.id)}
-                className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md p-2 text-white rounded w-[50%]"
+                className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md p-2 text-white rounded w-full"
               >
                 Delete
               </button>
