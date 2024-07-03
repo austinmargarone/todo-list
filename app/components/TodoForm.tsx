@@ -16,26 +16,30 @@ const TodoForm: React.FC<TodoFormProps> = ({ onCreateTodo }) => {
   };
 
   return (
-    <section className="items-center justify-center h-[25rem] w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px] flex flex-col gap-[2rem]">
-      <h1>New Task</h1>
-      <input
-        onChange={(e) => setTodoValue(e.target.value)}
-        value={todoValue}
-        className="rounded-md shadow-md p-2 text-black"
-        placeholder="Task"
-      />
-      <input
-        onChange={(e) => setDescriptionValue(e.target.value)}
-        value={descriptionValue}
-        className="rounded-md shadow-md p-2 text-black"
-        placeholder="Description"
-      />
-      <button
-        onClick={handleCreateTodo}
-        className="bg-blue-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
-      >
-        Create Task
-      </button>
+    <section className="flex items-center justify-center h-[22.5rem] max-w-md mx-auto px-4">
+      <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-semibold mb-4">New Task</h1>
+        <div className="space-y-4">
+          <input
+            onChange={(e) => setTodoValue(e.target.value)}
+            value={todoValue}
+            className="w-full rounded-md shadow-md p-3 text-black dark:text-gray-200 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Task"
+          />
+          <input
+            onChange={(e) => setDescriptionValue(e.target.value)}
+            value={descriptionValue}
+            className="w-full rounded-md shadow-md p-3 text-black dark:text-gray-200 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Description"
+          />
+          <button
+            onClick={handleCreateTodo}
+            className="w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 cursor-pointer shadow-md px-5 py-3 text-white rounded-md focus:outline-none"
+          >
+            Create Task
+          </button>
+        </div>
+      </div>
     </section>
   );
 };
