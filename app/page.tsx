@@ -102,8 +102,8 @@ export default function Home() {
   return (
     <main className="py-[2.5rem] flex flex-col items-center gap-[2.5rem] justify-center">
       <TodoForm onCreateTodo={handlePostTodo} />
-      <div className="flex flex-col lg:flex-row gap-[3.5rem]">
-        <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
+      <div className="flex flex-col lg:flex-row gap-[3.5rem] w-full max-w-md mx-auto px-4 lg:px-0 lg:max-w-fit">
+        <section className="gap-[2rem] flex flex-col border-t">
           <h2 className="flex justify-center mt-[2.5rem]">My Tasks</h2>
           {todos.map((todo) => (
             <TodoItem
@@ -115,7 +115,7 @@ export default function Home() {
             />
           ))}
         </section>
-        <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
+        <section className="gap-[2rem] flex flex-col border-t ">
           <h2 className="flex justify-center mt-[2.5rem]">Completed Tasks</h2>
           {completedTodos.map((todo) => (
             <TodoItem

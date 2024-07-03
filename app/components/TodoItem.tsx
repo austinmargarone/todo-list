@@ -26,7 +26,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-white dark:bg-gray-800">
+    <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-white dark:bg-gray-800 max-w-md mx-auto px-4 w-full lg:min-w-[25rem]">
       {isEditing ? (
         <>
           <input
@@ -87,12 +87,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
             </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center mt-2 text-gray-500">
-            <p className="text-xs italic">{`Created At: ${new Date(
+            <p className="text-[8px] italic">{`Created At: ${new Date(
               todo.createdAt
             ).toLocaleString()}`}</p>
             {new Date(todo.createdAt).getTime() !==
               new Date(todo.updatedAt).getTime() && (
-              <p className="text-xs italic">{`Updated At: ${new Date(
+              <p className="text-[8px] italic">{`Updated At: ${new Date(
                 todo.updatedAt
               ).toLocaleString()}`}</p>
             )}
