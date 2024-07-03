@@ -23,13 +23,13 @@ const TodoForm: React.FC<TodoFormProps> = ({ onCreateTodo }) => {
           <input
             onChange={(e) => setTodoValue(e.target.value)}
             value={todoValue}
-            className="w-full rounded-md shadow-md p-3 text-black dark:text-gray-200 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md shadow-md p-3 text-black dark:text-black border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Task"
           />
           <input
             onChange={(e) => setDescriptionValue(e.target.value)}
             value={descriptionValue}
-            className="w-full rounded-md shadow-md p-3 text-black dark:text-gray-200 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md shadow-md p-3 text-black dark:text-black border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Description"
           />
           <button
