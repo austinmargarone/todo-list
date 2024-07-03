@@ -26,7 +26,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <li className="shadow-lg border p-5 flex flex-col gap-[.5rem] rounded-sm">
+    <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-white dark:bg-gray-800">
       {isEditing ? (
         <>
           <input
@@ -41,50 +41,60 @@ const TodoItem: React.FC<TodoItemProps> = ({
             className="rounded-md shadow-md p-2 text-black"
             placeholder="Description"
           />
-          <button
-            onClick={handleSaveEdit}
-            className="bg-green-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
-          >
-            Save
-          </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            className="bg-gray-500 cursor-pointer shadow-md px-5 py-2 text-white rounded mt-2"
-          >
-            Cancel
-          </button>
+          <div className="flex gap-2 mt-2">
+            <button
+              onClick={handleSaveEdit}
+              className="bg-green-500 hover:bg-green-600 active:bg-green-700 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setIsEditing(false)}
+              className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+            >
+              Cancel
+            </button>
+          </div>
         </>
       ) : (
         <>
-          <strong>{todo.title}</strong>
-          <p className="mb-[.5rem]">{todo.description}</p>
-          <button
-            onClick={() => onToggleCompleted(todo.id, todo.completed)}
-            className={`cursor-pointer shadow-md p-2 rounded ${
-              todo.completed ? "bg-green-500" : "bg-red-500"
-            }`}
-          >
-            {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
-          </button>
-          <button
-            onClick={() => onDeleteTodo(todo.id)}
-            className="bg-gray-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => setIsEditing(true)}
-            className="bg-yellow-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
-          >
-            Edit
-          </button>
-          <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center">
-            <p className="text-[8px] italic">{`Created At: ${new Date(
+          <strong className="text-lg">{todo.title}</strong>
+          <p className="mb-2">{todo.description}</p>
+          <div className="flex flex-col lg:flex-row gap-2 mt-2 w-[100%]">
+            <div className="flex w-[100%]">
+              <button
+                onClick={() => onToggleCompleted(todo.id, todo.completed)}
+                className={`w-[100%] cursor-pointer shadow-md p-2 rounded text-white ${
+                  todo.completed
+                    ? "bg-green-500 hover:bg-green-600 active:bg-green-700"
+                    : "bg-red-500 hover:bg-red-600 active:bg-red-700"
+                }`}
+              >
+                {todo.completed ? "Mark Incomplete" : "Mark Complete"}
+              </button>
+            </div>
+            <div className="flex w-[100%] gap-2">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 cursor-pointer shadow-md p-2 text-white rounded w-[50%]"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => onDeleteTodo(todo.id)}
+                className="bg-gray-500 hover:bg-gray-600 active:bg-gray-700 cursor-pointer shadow-md p-2 text-white rounded w-[50%]"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center mt-2 text-gray-500">
+            <p className="text-xs italic">{`Created At: ${new Date(
               todo.createdAt
             ).toLocaleString()}`}</p>
             {new Date(todo.createdAt).getTime() !==
               new Date(todo.updatedAt).getTime() && (
-              <p className="text-[8px] italic">{`Updated At: ${new Date(
+              <p className="text-xs italic">{`Updated At: ${new Date(
                 todo.updatedAt
               ).toLocaleString()}`}</p>
             )}

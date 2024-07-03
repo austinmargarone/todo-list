@@ -16,7 +16,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onCreateTodo }) => {
   };
 
   return (
-    <section className="items-center w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px] flex flex-col gap-[2rem]">
+    <section className="items-center justify-center h-[25rem] w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px] flex flex-col gap-[2rem]">
       <h1>New Task</h1>
       <input
         onChange={(e) => setTodoValue(e.target.value)}
