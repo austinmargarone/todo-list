@@ -7,6 +7,9 @@ export default function Home() {
   const [todoValue, setTodoValue] = useState<string>("");
   const [descriptionValue, setDescriptionValue] = useState<string>("");
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingTitle, setEditingTitle] = useState<string>("");
+  const [editingDescription, setEditingDescription] = useState<string>("");
 
   useEffect(() => {
     async function fetchTodos() {
@@ -58,6 +61,25 @@ export default function Home() {
     }
   }
 
+  async function handleEditTodo() {
+    try {
+      const res = await axios.patch("/api/todo", {
+        id: editingId,
+        title: editingTitle,
+        description: editingDescription,
+      });
+      const updatedTodo = res.data;
+      setTodos(
+        todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
+      );
+      setEditingId(null);
+      setEditingTitle("");
+      setEditingDescription("");
+    } catch (error) {
+      console.error("Error editing todo", error);
+    }
+  }
+
   return (
     <main className="py-[2.5rem] flex flex-col items-center gap-[2.5rem] justify-center">
       <section className="items-center w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px] flex flex-col gap-[2rem]">
@@ -88,30 +110,71 @@ export default function Home() {
             key={todo.id}
             className="shadow-lg border p-5 flex flex-col gap-[.5rem] rounded-sm"
           >
-            <strong>{todo.title}</strong>
-            <p className="mb-[.5rem]">{todo.description}</p>
-            <button
-              onClick={() => handleToggleCompleted(todo.id, todo.completed)}
-              className={`cursor-pointer shadow-md p-2 rounded ${
-                todo.completed ? "bg-green-500" : "bg-red-500"
-              }`}
-            >
-              {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
-            </button>
-            <button
-              onClick={() => handleDeleteTodo(todo.id)}
-              className="bg-gray-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
-            >
-              Delete
-            </button>
-            <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center">
-              <p className="text-[8px] italic">{`Created At: ${new Date(
-                todo.createdAt
-              ).toLocaleString()}`}</p>
-              <p className="text-[8px] italic">{`Updated At: ${new Date(
-                todo.updatedAt
-              ).toLocaleString()}`}</p>
-            </div>
+            {editingId === todo.id ? (
+              <>
+                <input
+                  onChange={(e) => setEditingTitle(e.target.value)}
+                  value={editingTitle}
+                  className="rounded-md shadow-md p-2 text-black"
+                  placeholder="Title"
+                />
+                <input
+                  onChange={(e) => setEditingDescription(e.target.value)}
+                  value={editingDescription}
+                  className="rounded-md shadow-md p-2 text-black"
+                  placeholder="Description"
+                />
+                <button
+                  onClick={handleEditTodo}
+                  className="bg-green-500 cursor-pointer shadow-md px-5 py-2 text-white rounded"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setEditingId(null)}
+                  className="bg-gray-500 cursor-pointer shadow-md px-5 py-2 text-white rounded mt-2"
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <strong>{todo.title}</strong>
+                <p className="mb-[.5rem]">{todo.description}</p>
+                <button
+                  onClick={() => handleToggleCompleted(todo.id, todo.completed)}
+                  className={`cursor-pointer shadow-md p-2 rounded ${
+                    todo.completed ? "bg-green-500" : "bg-red-500"
+                  }`}
+                >
+                  {todo.completed ? "Mark as Incomplete" : "Mark as Complete"}
+                </button>
+                <button
+                  onClick={() => handleDeleteTodo(todo.id)}
+                  className="bg-gray-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => {
+                    setEditingId(todo.id);
+                    setEditingTitle(todo.title);
+                    setEditingDescription(todo.description || "");
+                  }}
+                  className="bg-yellow-500 cursor-pointer shadow-md p-2 text-white rounded mt-2"
+                >
+                  Edit
+                </button>
+                <div className="flex flex-col sm:flex-row justify-start sm:justify-between items-start sm:items-center">
+                  <p className="text-[8px] italic">{`Created At: ${new Date(
+                    todo.createdAt
+                  ).toLocaleString()}`}</p>
+                  <p className="text-[8px] italic">{`Updated At: ${new Date(
+                    todo.updatedAt
+                  ).toLocaleString()}`}</p>
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>
