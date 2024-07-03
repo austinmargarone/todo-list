@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { Todo } from ".prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,10 @@ export default async function handler(
   }
 }
 
-async function getTodos(req: NextApiRequest, res: NextApiResponse) {
+async function getTodos(
+  req: NextApiRequest,
+  res: NextApiResponse<Todo[] | { error: string }>
+) {
   try {
     const todos = await prisma.todo.findMany();
     res.status(200).json(todos);
@@ -35,7 +39,10 @@ async function getTodos(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-async function postTodo(req: NextApiRequest, res: NextApiResponse) {
+async function postTodo(
+  req: NextApiRequest,
+  res: NextApiResponse<Todo | { error: string }>
+) {
   try {
     const { title, description, completed } = req.body;
     const todo = await prisma.todo.create({
@@ -45,26 +52,32 @@ async function postTodo(req: NextApiRequest, res: NextApiResponse) {
         completed,
       },
     });
-    res.status(200).json(todo);
+    res.status(200).json(todo as Todo);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
-async function updateTodo(req: NextApiRequest, res: NextApiResponse) {
+async function updateTodo(
+  req: NextApiRequest,
+  res: NextApiResponse<Todo | { error: string }>
+) {
   try {
     const { id, title, description, completed } = req.body;
     const todo = await prisma.todo.update({
       where: { id },
       data: { title, description, completed },
     });
-    res.status(200).json(todo);
+    res.status(200).json(todo as Todo);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
-async function deleteTodo(req: NextApiRequest, res: NextApiResponse) {
+async function deleteTodo(
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string } | { error: string }>
+) {
   try {
     const { id } = req.body;
     await prisma.todo.delete({
