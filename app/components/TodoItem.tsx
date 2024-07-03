@@ -82,9 +82,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <p className="text-[8px] italic">{`Created At: ${new Date(
               todo.createdAt
             ).toLocaleString()}`}</p>
-            <p className="text-[8px] italic">{`Updated At: ${new Date(
-              todo.updatedAt
-            ).toLocaleString()}`}</p>
+            {new Date(todo.createdAt).getTime() !==
+              new Date(todo.updatedAt).getTime() && (
+              <p className="text-[8px] italic">{`Updated At: ${new Date(
+                todo.updatedAt
+              ).toLocaleString()}`}</p>
+            )}
           </div>
         </>
       )}
