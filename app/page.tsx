@@ -102,30 +102,32 @@ export default function Home() {
   return (
     <main className="py-[2.5rem] flex flex-col items-center gap-[2.5rem] justify-center">
       <TodoForm onCreateTodo={handlePostTodo} />
-      <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
-        <h2 className="flex justify-center mt-[2.5rem]">My Tasks</h2>
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggleCompleted={handleToggleCompleted}
-            onDeleteTodo={handleDeleteTodo}
-            onEditTodo={handleEditTodo}
-          />
-        ))}
-      </section>
-      <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
-        <h2 className="flex justify-center mt-[2.5rem]">Completed Tasks</h2>
-        {completedTodos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggleCompleted={handleToggleCompleted}
-            onDeleteTodo={handleDeleteTodo}
-            onEditTodo={handleEditTodo}
-          />
-        ))}
-      </section>
+      <div className="flex flex-col lg:flex-row gap-[3.5rem]">
+        <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
+          <h2 className="flex justify-center mt-[2.5rem]">My Tasks</h2>
+          {todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onToggleCompleted={handleToggleCompleted}
+              onDeleteTodo={handleDeleteTodo}
+              onEditTodo={handleEditTodo}
+            />
+          ))}
+        </section>
+        <section className="gap-[2rem] flex flex-col border-t w-[280px] sm:w-[325px] md:w-[350px] lg:w-[380px]">
+          <h2 className="flex justify-center mt-[2.5rem]">Completed Tasks</h2>
+          {completedTodos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onToggleCompleted={handleToggleCompleted}
+              onDeleteTodo={handleDeleteTodo}
+              onEditTodo={handleEditTodo}
+            />
+          ))}
+        </section>
+      </div>
     </main>
   );
 }
