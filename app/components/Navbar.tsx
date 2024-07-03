@@ -3,7 +3,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="h-[3.5rem] bg-black border-b flex justify-between items-center px-[2.5rem]">
+    <div className="h-[4.25rem] bg-black border-b flex justify-between items-center px-[2.5rem]">
       <div>To Do App</div>
       <div>
         <Link
