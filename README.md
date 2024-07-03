@@ -41,10 +41,10 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository**:
 
-   ```bash
-   git clone  git@github.com:austinmargarone/todo-list.git
-   cd todo-list
-   ```
+```bash
+git clone  git@github.com:austinmargarone/todo-list.git
+cd todo-list
+```
 
 2. **Install & Launch**:
 
