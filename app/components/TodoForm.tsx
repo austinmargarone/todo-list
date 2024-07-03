@@ -1,49 +1,19 @@
 "use client";
-import { useState } from "react";
-import { z } from "zod";
-
-const todoSchema = z.object({
-  title: z.string().min(1, "Title must not be empty"),
-  description: z.string().min(1, "Description must not be empty"),
-});
+import { useTodoForm } from "../hooks/useTodoForm";
 
 interface TodoFormProps {
   onCreateTodo: (title: string, description: string) => Promise<void>;
 }
 
 const TodoForm: React.FC<TodoFormProps> = ({ onCreateTodo }) => {
-  const [todoValue, setTodoValue] = useState<string>("");
-  const [descriptionValue, setDescriptionValue] = useState<string>("");
-  const [validationErrors, setValidationErrors] = useState<{
-    [key: string]: string | undefined;
-  }>({});
-
-  const handleCreateTodo = async () => {
-    try {
-      const validatedData = todoSchema.parse({
-        title: todoValue,
-        description: descriptionValue,
-      });
-      console.log("Validated Data:", validatedData);
-      await onCreateTodo(validatedData.title, validatedData.description);
-      setTodoValue("");
-      setDescriptionValue("");
-      setValidationErrors({});
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        console.error("Validation Error:", error.errors);
-        const fieldErrors: { [key: string]: string } = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            fieldErrors[err.path[0]] = err.message;
-          }
-        });
-        setValidationErrors(fieldErrors);
-      } else {
-        console.error("Validation failed with unknown error", error);
-      }
-    }
-  };
+  const {
+    todoValue,
+    setTodoValue,
+    descriptionValue,
+    setDescriptionValue,
+    validationErrors,
+    handleCreateTodo,
+  } = useTodoForm({ onCreateTodo });
 
   return (
     <section className="flex items-center justify-center h-[22.5rem] max-w-md mx-auto px-4">
