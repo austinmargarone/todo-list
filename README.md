@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# To-Do List Application
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+![Preview Image](devpreview.png)
+
+## Demo
+
+Check out the live website [here](https://prisma-to-do-list.vercel.app/).
+
+## Description
+
+This project is a full-stack CRUD (Create, Read, Update, Delete) to-do list application built with Next.js, Node.js, TypeScript, and Prisma.
+
+## Usage
+
+Create tasks and stay organized.
+
+## Features
+
+- **Create**: Add new to-do items with titles and descriptions.
+- **Read**: View the list of to-do items and their details.
+- **Update**: Edit existing to-do items including title and description.
+- **Delete**: Remove to-do items from the list.
+
+## Tech Stack
+
+- **Frontend**:
+  - **Framework**: Next.js
+  - **Language**: TypeScript
+  - **State Management**: React Hooks
+  - **Styling**: Tailwind CSS
+- **Backend**:
+  - **Server**: Node.js
+  - **Database**: PostgreSQL (via Prisma)
+  - **API**: RESTful API endpoints (handled with Next.js API routes)
 
 ## Getting Started
 
-First, run the development server:
+To run this project locally, follow these steps:
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone  git@github.com:austinmargarone/todo-list.git
+   cd todo-list
+   ```
+
+2. **Install & Launch**:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We welcome contributions from the community! To contribute to the project, follow these steps:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Fork this repository.
+2. Create a new branch (`git checkout -b feature/your-feature-name`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature-name`).
+5. Create a new Pull Request.
 
-## Learn More
+Please review our [Contributing Guidelines](CONTRIBUTING.md) for more details.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the [MIT License](LICENSE).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For questions or support, please contact Austin Margarone at austin@margarone.dev.
