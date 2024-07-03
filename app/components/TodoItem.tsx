@@ -1,5 +1,5 @@
 import { Todo } from "@prisma/client";
-import { useState } from "react";
+import { useTodoItem } from "../hooks/useTodoItem";
 
 interface TodoItemProps {
   todo: Todo;
@@ -14,16 +14,15 @@ const TodoItem: React.FC<TodoItemProps> = ({
   onDeleteTodo,
   onEditTodo,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingTitle, setEditingTitle] = useState(todo.title);
-  const [editingDescription, setEditingDescription] = useState(
-    todo.description || ""
-  );
-
-  const handleSaveEdit = () => {
-    onEditTodo(todo.id, editingTitle, editingDescription);
-    setIsEditing(false);
-  };
+  const {
+    isEditing,
+    setIsEditing,
+    editingTitle,
+    setEditingTitle,
+    editingDescription,
+    setEditingDescription,
+    handleSaveEdit,
+  } = useTodoItem({ todo, onEditTodo });
 
   return (
     <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-gray-800 max-w-md mx-auto px-4 w-full lg:min-w-[25rem]">
