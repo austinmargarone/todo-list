@@ -26,7 +26,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-white dark:bg-gray-800 max-w-md mx-auto px-4 w-full lg:min-w-[25rem]">
+    <li className="shadow-lg border p-5 flex flex-col gap-2 rounded-md bg-gray-800 max-w-md mx-auto px-4 w-full lg:min-w-[25rem]">
       {isEditing ? (
         <>
           <input
